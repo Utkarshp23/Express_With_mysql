@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <script>
+      function getEmp() {
+        var id = document.getElementById('empid').value;
+        var url = `http://localhost:9000/empdata?empid=${id}`;
+
+        var ajax = createAjaxObjec();
+        ajax.open('get', url, true);
+        ajax.send('');
+        ajax.onreadystatechange = updatePage;
+      }
+
+      function createAjaxObjec() {
+        try {
+          var ajax = new XMLHttpRequest();
+          return ajax;
+        } catch (e) {
+          try {
+            var ajax = new ActiveXObject('Microsoft.XMLHTTP');
+          } catch (e) {
+            console.log('Ajax unsuported for your browser..');
+          }
+        }
+      }
+
+      function updatePage() {
+        if (this.readyState == 4) {
+          document.getElementById('show').innerHTML = this.responseText;
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <input type="text" placeholder="Enter emp id" id="empid" />
+    <button id="btn" onclick="getEmp()">Get Employee</button>
+    <div id="show"></div>
+  </body>
+</html>

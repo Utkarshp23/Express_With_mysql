@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <script src="jquery-3.6.0.min.js"></script>
+    <script src="jquery-ui.min.js"></script>
+    <script>
+      $(document).ready(() => {
+        $('#btn').click(function () {
+          // $.get(link, (data, status) => {
+          //   console.log(status);
+          //   if (status == 'success') {
+          //     $('#show').html(data);
+          //   }
+          // });
+        });
+
+        $('#empid').blur(function () {
+          var id = $('#empid').val();
+          console.log(id);
+          var link = `http://localhost:9000/empdata?empid=${id}`;
+          console.log("'Hello'");
+          $.get(link, (data, status) => {
+            console.log(data.length);
+            if (status == 'success' && data.length != 0) {
+              $('#status').html('emp Available');
+            } else {
+              $('#status').html('emp not Available');
+            }
+          });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <input type="text" placeholder="Enter emp id" id="empid" />
+    <span id="status"></span>
+    <button id="btn">Get Employee</button>
+    <div id="show"></div>
+  </body>
+</html>
